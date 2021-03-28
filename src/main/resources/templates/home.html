@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Film Library</title>
+    
+    <th:block th:include="~{/fragments/head}"></th:block>
+
+    <link rel="stylesheet" th:href="@{/css/component/welcome.css}"/>
+
+</head>
+<body>
+<div class="container">
+    <th:block th:include="~{/fragments/nav}"></th:block>
+    <th:block sec:authorize="isAnonymous()">
+        <th:block th:include="~{/fragments/welcome}"></th:block>
+    </th:block>
+    <th:block sec:authorize="hasAnyAuthority('MAIN_ADMIN', 'ADMIN', 'USER')">
+        <div class="card-header">You is logged!</div>
+    </th:block>
+    <th:block th:include="~{/fragments/footer}"></th:block>
+</div>
+<th:block th:include="~{/fragments/js-files}"></th:block>
+</body>
+</html>

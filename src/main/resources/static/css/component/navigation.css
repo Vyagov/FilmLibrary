@@ -1,0 +1,31 @@
+.navbar-nav {
+  padding-top: 15px;
+}
+
+.nav-item {
+  margin: 5px;
+
+}
+
+.navbar-collapse {
+  flex-grow: 0;
+}
+
+.btn-large,
+div.dropdown-menu {
+  background-color: #006699;
+}
+
+.dropdown-menu button {
+  border-radius: 0;
+}
+
+.dropdown-menu a:hover {
+  background-color: #007bff;
+}
+
+.dropdown-menu button,
+.dropdown-menu a,
+.dropdown-menu a:hover {
+  color: white;
+}

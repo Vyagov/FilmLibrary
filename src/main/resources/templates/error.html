@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Error Page</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/baseStyle.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/error.css}"/>
+</head>
+<body th:with="httpStatus=${T(org.springframework.http.HttpStatus).valueOf(#response.status)}">
+<div class="container">
+    <header class="jumbotron hero-spacer" style="text-align:center;">
+        <img src="/images/error404.jpg" class="rounded mx-auto d-block" alt="Error404">
+        <br/>
+    </header>
+    <div class="content">
+        <div class="title">
+            <p class="lead">We cannot find the page you are looking for.</p>
+            <p class="lead">It might have been removed, had its name changed, or is temporarily unavailable.</p>
+            <p class="lead"> Please check that the Web site address is spelled correctly.</p>
+            <p class="lead"> Or go to our
+                <a class="btn btn-primary btn-large" th:href="@{/}">home page</a>
+                , and use the menus to navigate to a specific section.</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

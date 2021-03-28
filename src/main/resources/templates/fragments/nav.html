@@ -1,0 +1,76 @@
+<th:block xmlns:th="http://www.thymeleaf.org"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemalocation="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+          xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a th:href="@{/home}" class="navbar-brand h1">
+            <img th:src="@{/images/logo.png}" class="d-inline-block" width="50px" alt="Logo" src="">
+            Film Library
+        </a>
+        <div class="collapse navbar-collapse ml-md-auto" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <th:block sec:authorize="isAnonymous()">
+                    <li class="nav-item active">
+                        <a href="#" class="btn btn-large btn-primary">
+                            <i class="fas fa-film"></i>
+                            All Films
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a th:href="@{/users/login}" class="btn btn-large btn-primary">
+                            <i class="fas fa-sign-in-alt"></i>
+                            Login
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a th:href="@{/users/register}" class="btn btn-large btn-primary">
+                            <i class="fas fa-edit"></i>
+                            Register
+                        </a>
+                    </li>
+                </th:block>
+                <th:block sec:authorize="hasAnyAuthority('MAIN_ADMIN', 'ADMIN', 'USER')">
+                    <li class="nav-item dropdown">
+                        <a href="#" class="btn btn-large btn-primary dropdown-toggle" id="navbarDropdownMenuLink1"
+                           type="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-book" aria-hidden="true"></i>
+                            Films <span class="caret"></span>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
+                            <a href="#" class="dropdown-item">Add films</a>
+                            <a href="#" class="dropdown-item">My films</a>
+                            <a href="#" class="dropdown-item">All films</a>
+                        </div>
+                    </li>
+                    <li sec:authorize="hasAnyAuthority('MAIN_ADMIN', 'ADMIN')" class="nav-item dropdown">
+                        <a href="#" class="btn btn-large btn-primary dropdown-toggle" id="navbarDropdownMenuLink2"
+                           type="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Administration
+                            <span class="caret"></span>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
+                            <a href="#" class="dropdown-item">All Users</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="btn btn-large btn-primary dropdown-toggle" id="navbarDropdownMenuLink3"
+                           type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span th:text="|Hi, ${#authentication.getName()}|" th:remove="tag">user</span>
+                            <span class="caret"></span>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink3">
+                            <a href="#" class="dropdown-item">Profile</a>
+                            <form th:action="@{/logout}" method="post">
+                                <button type="submit" class="btn btn-large btn-primary dropdown-item">
+                                    Logout
+                                </button>
+                            </form>
+                        </div>
+                    </li>
+                </th:block>
+            </ul>
+        </div>
+    </nav>
+</th:block>
