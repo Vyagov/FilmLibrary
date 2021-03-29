@@ -4,6 +4,10 @@ html, body {
   background: #333 url('../images/background.jpg');
 }
 
+.container > .container {
+  background-color: white;
+}
+
 .pad {
   margin: 1em;
 }

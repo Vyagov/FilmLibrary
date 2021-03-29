@@ -75,6 +75,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private void createUser(User user) {
+
         this.userRepository.saveAndFlush(user);
     }
 }
