@@ -61,7 +61,7 @@
                             <span class="caret"></span>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink3">
-                            <a href="#" class="dropdown-item">Profile</a>
+                            <a th:href="@{/users/profile}" class="dropdown-item">Profile</a>
                             <form th:action="@{/logout}" method="post">
                                 <button type="submit" class="btn btn-large btn-primary dropdown-item">
                                     Logout

@@ -2,7 +2,6 @@
 
 body {
     width: 100%;
-    color: #B0BEC5;
     font-family: 'Lato', sans-serif;
 }
 
@@ -22,4 +21,9 @@ body {
     margin-top: 5px;
     font-weight: bold;
     line-height: 1.3em;
+    color: #B0BEC5;
+}
+
+.title p.alert {
+    color: #e00000;
 }
