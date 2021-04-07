@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{/fragments/head}"></th:block>
+</head>
+<body>
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a th:href="@{/home}" class="navbar-brand h1">
+            <img th:src="@{/images/logo.png}" class="d-inline-block" width="50px" alt="Logo" src="">
+            Film Library
+        </a>
+    </nav>
+    <div class="card">
+        <div class="card-header">Login</div>
+        <div class="card-body">
+            <form role="form" th:method="post" th:action="@{/users/login/authenticate}">
+                <p th:if="${error}" class="alert alert-danger h5 row" role="alert">
+                    <strong>Incorrect username or password!</strong>
+                </p>
+                <div class="form-group row">
+                    <label for="username" class="col-4 col-form-label">Username</label>
+                    <div class="col-6">
+                        <input th:value="${username}" id="username" type="text" class="form-control" name="username"
+                               required autofocus>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="password" class="col-4 col-form-label">Password</label>
+                    <div class="col-6">
+                        <input id="password" type="password" class="form-control" name="password" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-8 offset-4">
+                        <button type="submit" class="btn btn-large btn-primary">
+                            <i class="fas fa-sign-in-alt"></i>
+                            Login
+                        </button>
+                        <a th:href="@{/users/register}" class="btn btn-large btn-primary">
+                            <i class="fas fa-edit"></i>
+                            Register
+                        </a>
+                        <a class="btn btn-link" href="#">Forgot Your Password?</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <th:block th:include="~{/fragments/footer}"></th:block>
+</div>
+<th:block th:include="~{/fragments/js-files}"></th:block>
+</body>
+</html>

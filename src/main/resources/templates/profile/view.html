@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{/fragments/head}"></th:block>
+
+    <link rel="stylesheet" th:href="@{/css/component/profile_view.css}"/>
+</head>
+<body>
+<div class="container">
+    <th:block th:include="~{/fragments/nav}"></th:block>
+    <div class="card">
+        <div class="card-header">Profile Information</div>
+        <div class="row justify-content-center">
+            <div th:object="${userView}" class="text-center">
+                <div class="second">
+                    <img th:src="@{/images/default_avatar.png}" class="card-img-top" width="100%" alt="avatar">
+                </div>
+                <div class="mb-2">
+                    <h3 th:text="|*{firstName} *{lastName}|"></h3>
+                </div>
+                <div class="mb-2">
+                    <ul class="list-unstyled">
+                        <li class="media">
+                            <span>Username: </span>
+                            <label th:text="*{username}"></label>
+                        </li>
+                        <li class="media">
+                            <span>Email: </span>
+                            <label th:text="*{email}"></label>
+                        </li>
+                        <li class="media">
+                            <span>Account created: </span>
+                            <label th:text="*{createDate}"></label>
+                        </li>
+                        <li class="media">
+                            <span>
+                                <a th:href="@{/users/profile/update}"
+                                   class="btn btn-success">Update Profile</a>
+                            </span>
+                            <label>
+                                <a th:href="@{/users/profile/delete/{id}(id = *{id})}"
+                                   onclick="return confirm('Do you really want to delete your account?');"
+                                   class="btn btn-danger">Delete</a>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <th:block th:include="~{/fragments/footer}"></th:block>
+</div>
+</div>
+<th:block th:include="~{/fragments/js-files}"></th:block>
+</body>
+</html>

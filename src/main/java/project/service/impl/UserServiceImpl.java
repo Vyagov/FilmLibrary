@@ -116,9 +116,9 @@ public class UserServiceImpl implements UserService {
 //        if (user == null) {
 //            throw new UserIdNotFoundException("User with this Id is not found!");
 //        }
-//        if (user.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("MAIN_ADMIN"))) {
-//            throw new UserIsNotHaveAccessException("Do not have access to delete MAIN ADMIN!");
-//        }
+        if (user.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("MAIN_ADMIN"))) {
+            throw new UserIsNotHaveAccessException("Do not have access to delete MAIN ADMIN!");
+        }
         this.userRepository.deleteById(id);
     }
 
