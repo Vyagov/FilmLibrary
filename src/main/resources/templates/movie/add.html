@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{/fragments/head}">
+    </th:block>
+    <link rel="stylesheet" th:href="@{/css/component/select_tag.css}"/>
+</head>
+<body>
+<div class="container">
+    <th:block th:include="~{/fragments/nav}">
+    </th:block>
+    <div class="card">
+        <div class="card-header">Create Movie</div>
+        <div class="card-block container">
+            <form role="form" enctype="multipart/form-data" th:object="${movieBindingModel}" th:method="post"
+                  th:action="@{/movies/add}">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="movieTitle">Movie Title</label>
+                        <input th:field="*{movieTitle}" th:errorclass="bg-danger" id="movieTitle"
+                               type="text" class="form-control" name="bookTitle"
+                               value="movieTitle" autofocus>
+                        <small th:each="err : ${#fields.errors('movieTitle')}" th:text="${err}"
+                               class="text-danger h5"></small>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="duration">Duration</label>
+                        <input th:field="*{duration}" th:errorclass="bg-danger" id="duration"
+                               type="text" class="form-control" name="duration" value="duration">
+                        <small th:each="err : ${#fields.errors('duration')}" th:text="${err}"
+                               class="text-danger h5"></small>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="director">Director</label>
+                        <input th:field="*{director}" th:errorclass="bg-danger" id="director" type="text"
+                               class="form-control" name="director" value="director">
+                        <small th:each="err : ${#fields.errors('director')}" th:text="${err}"
+                               class="text-danger h5"></small>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="producer">Producer</label>
+                        <input th:field="*{producer}" th:errorclass="bg-danger" id="producer" type="text"
+                               class="form-control" name="producer" value="producer">
+                        <small th:each="err : ${#fields.errors('producer')}" th:text="${err}"
+                               class="text-danger h5"></small>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="screenwriter">Screenwriter</label>
+                        <input th:field="*{screenwriter}" th:errorclass="bg-danger" id="screenwriter"
+                               type="text" class="form-control" name="screenwriter" value="screenwriter">
+                        <small th:each="err : ${#fields.errors('screenwriter')}" th:text="${err}"
+                               class="text-danger h5"></small>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="cast">Cast</label>
+                        <select th:field="*{actorNames}" th:errorclass="bg-danger" id="cast"
+                                class="form-control multiselect multiselect-icon" role="multiselect" name="cast" multiple>
+                            <option th:each="actor : ${actors}"
+                                    th:text="${actor.name}"
+                                    th:value="${actor.name}"></option>
+                        </select>
+                        <small th:each="err : ${#fields.errors('actorNames')}" th:text="${err}"
+                               class="text-danger h5"></small>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="createActor" class="hidden-btn">Create Actor</label>
+                        <a th:href="@{/actors/add}" id="createActor"
+                           class="btn btn-large btn-primary">Create Actor</a>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <button class="btn btn-secondary fileContainer" aria-hidden="true">
+                            <i class="fa fa-picture-o" aria-hidden="true"></i>
+                            <input class="myFile" id="myInput" type="file" name="image"/>
+                            <span id="result">Upload...</span>
+                        </button>
+                        <small th:each="err : ${#fields.errors('image')}" th:text="${err}"
+                               path="fileError" class="text-danger h5"></small>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="submit" class="btn btn-large btn-primary right">
+                            Submit
+                            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <th:block th:include="~{/fragments/footer}">
+    </th:block>
+</div>
+<th:block th:include="~{/fragments/js-files}">
+</th:block>
+<script th:src="@{/js/upload_btn.js}"></script>
+<script th:src="@{/js/select_tag.js}"></script>
+</body>
+</html>

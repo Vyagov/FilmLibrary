@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{/fragments/head}">
+    </th:block>
+</head>
+<body>
+<div class="container">
+    <th:block th:include="~{/fragments/nav}">
+    </th:block>
+    <div class="card">
+        <div class="card-header">Create Actor</div>
+        <div class="card-body">
+            <form th:action="@{/actors/add}" th:object="${actorBindingModel}" class="register"
+                  role="form" enctype="multipart/form-data" th:method="post">
+                <div class="form-group row">
+                    <label for="name" class="col-lg-4 col-form-label">Full Name</label>
+                    <div class="col-lg-6">
+                        <input th:field="*{name}" th:errorclass="bg-danger" id="name" type="text"
+                               class="form-control" name="name" autofocus>
+                        <small th:each="err : ${#fields.errors('name')}" th:text="${err}"
+                               class="text-danger h5"></small>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="born" class="col-lg-4 col-form-label">Born</label>
+                    <div class="col-lg-6">
+                        <input th:field="*{born}" th:errorclass="bg-danger" id="born" type="text"
+                               class="form-control" name="born" autofocus>
+                        <small th:each="err : ${#fields.errors('born')}" th:text="${err}"
+                               class="text-danger h5"></small>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="biography" class="col-lg-4 col-form-label">Biography</label>
+                    <div class="col-lg-6">
+                                <textarea th:field="*{biography}" th:errorclass="bg-danger" id="biography"
+                                          rows="5" class="form-control" style="resize: vertical" name="resume"
+                                          placeholder="Biography" value="biography" autofocus></textarea>
+                        <small th:each="err : ${#fields.errors('biography')}" th:text="${err}"
+                               class="text-danger h5"></small>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="myInput" class="hidden-btn col-lg-4 col-form-label">Upload Image</label>
+                    <div class="col-lg-6">
+                        <button class="btn btn-secondary fileContainer" aria-hidden="true">
+                            <i class="fa fa-picture-o" aria-hidden="true"></i>
+                            <input class="myFile" id="myInput" type="file" name="image"/>
+                            <span id="result">Upload image...</span>
+                        </button>
+                        <small th:each="err : ${#fields.errors('image')}" th:text="${err}"
+                               path="fileError" class="text-danger h5"></small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-6 offset-md-4">
+                        <button type="submit" class="btn btn-large btn-primary right">
+                            Submit
+                            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <th:block th:include="~{/fragments/footer}">
+    </th:block>
+</div>
+<th:block th:include="~{/fragments/js-files}">
+</th:block>
+<script th:src="@{/js/upload_btn.js}"></script>
+</body>
+</html>
