@@ -54,15 +54,6 @@ label {
   font-size: 1.5em;
 }
 
-input[type=date] {
-  background-color: #eeeeee;
-  font-size: 1.5em;
-}
-
-select.form-control:not([size]):not([multiple]) {
-  height: 50px!important;
-}
-
 .fileContainer {
   overflow: hidden;
   position: relative;
@@ -135,9 +126,4 @@ div#my-col {
 .search-film {
   margin: 0;
   padding-top: 0;
-}
-
-.genre {
-  font-size: 0.8em;
-  font-weight: bold;
 }

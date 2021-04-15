@@ -15,7 +15,7 @@ public class UserProfileUpdateBindingModel extends BaseBindingModel {
     }
 
     @Length(min = 2, max = 35, message = "Name length must be between 2 and 35 characters! ")
-    @Pattern(regexp = "^[a-zA-Z\\p{IsCyrillic}]+$", message = "Name must be only letters!")
+    @Pattern(regexp = "^[a-zA-Z0-9\\p{IsCyrillic}]+$", message = "Name must be only letters!")
     public String getFirstName() {
         return firstName;
     }
@@ -25,7 +25,7 @@ public class UserProfileUpdateBindingModel extends BaseBindingModel {
     }
 
     @Length(min = 2, max = 35, message = "Name length must be between 2 and 35 characters! ")
-    @Pattern(regexp = "^[a-zA-Z\\p{IsCyrillic}]+$", message = "Name must be only letters!")
+    @Pattern(regexp = "^[a-zA-Z0-9\\p{IsCyrillic}]+$", message = "Name must be only letters!")
     public String getLastName() {
         return lastName;
     }

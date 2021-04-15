@@ -11,9 +11,36 @@
     <th:block sec:authorize="isAnonymous()">
         <th:block th:include="~{/fragments/welcome}"></th:block>
     </th:block>
-    <th:block sec:authorize="hasAnyAuthority('MAIN_ADMIN', 'ADMIN', 'USER')">
-        <div class="card-header">You is logged!</div>
-    </th:block>
+    <div class="card">
+        <th:block sec:authorize="hasAnyAuthority('MAIN_ADMIN', 'ADMIN', 'USER')">
+            <div class="card-header">List of Movies</div>
+            <div class="card-block">
+                <form class="form-inline" role="search" th:method="post" th:action="@{/movies/search}">
+                    <div class="form-group">
+                        <label class="searchBook" for="searchBook">Search book</label>
+                        <input id="searchBook" type="text" class="form-control mx-sm-3" name="searchBook"
+                               placeholder="Search book">
+                        <button type="submit" class="btn btn-large btn-primary">Search</button>
+                    </div>
+                </form>
+            </div>
+            <div class="row imglink">
+                <div class="col-3" id="my-col" th:each="movie : ${allMovies}">
+                    <div class="content thumbnail div-img">
+                        <a th:href="@{/movies/details/{movieId}(movieId = ${movie.getId()})}">
+                            <img th:src="*{movie.poster}" src="" alt="Movie" width="100%">
+                        </a>
+                        <div class="title">
+                            <p th:text="*{movie.movieTitle}"></p>
+                        </div>
+                        <div class="genre">
+                            <p th:text="|*{movie.duration} minutes|"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </th:block>
+    </div>
     <th:block th:include="~{/fragments/footer}"></th:block>
 </div>
 <th:block th:include="~{/fragments/js-files}"></th:block>
