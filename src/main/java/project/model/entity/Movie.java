@@ -72,7 +72,10 @@ public class Movie extends BaseEntity {
         this.duration = duration;
     }
 
-    @ManyToMany(mappedBy = "movies")
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "movies_actors",
+            joinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "actor_id", referencedColumnName = "id"))
     public Set<Actor> getCast() {
         return cast;
     }

@@ -11,7 +11,7 @@ public class Actor extends BaseEntity {
     private String name;
     private String born;
     private String biography;
-    private Set<Movie> movies = new HashSet<>();
+//    private Set<Movie> movies = new HashSet<>();
 
     public Actor() {
     }
@@ -52,17 +52,14 @@ public class Actor extends BaseEntity {
         this.biography = biography;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinTable(name = "actors_movies",
-            joinColumns = @JoinColumn(name = "actor_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id"))
-    public Set<Movie> getMovies() {
-        return movies;
-    }
-
-    public void setMovies(Set<Movie> movies) {
-        this.movies = movies;
-    }
+//    @ManyToMany(mappedBy = "actors")
+//    public Set<Movie> getMovies() {
+//        return movies;
+//    }
+//
+//    public void setMovies(Set<Movie> movies) {
+//        this.movies = movies;
+//    }
 
 //    public void addMovie(Movie movie) {
 //        this.movies.add(movie);
