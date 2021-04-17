@@ -14,26 +14,27 @@
     <div class="card">
         <th:block sec:authorize="hasAnyAuthority('MAIN_ADMIN', 'ADMIN', 'USER')">
             <div class="card-header">List of Movies</div>
+            <strong class="text-danger h4" id="invalidSearch"></strong>
             <div class="card-block">
-                <form class="form-inline" role="search" th:method="post" th:action="@{/movies/search}">
+                <form class="form-inline" role="search" id="search-form">
                     <div class="form-group">
                         <label class="searchMovie col-form-label" for="searchMovie">Search Movie</label>
                         <input id="searchMovie" type="text" class="form-control mx-sm-3" name="searchMovie"
-                               placeholder="Search Movie">
-                        <button type="submit" class="btn btn-large btn-primary">Search</button>
+                               placeholder="By Movie Title">
+                        <button type="submit" class="btn btn-large btn-primary" id="bth-search">Search</button>
                     </div>
                 </form>
             </div>
-            <div class="row imglink">
+            <div class="row imglink" id="tree">
                 <div class="col-3" id="my-col" th:each="movie : ${allMovies}">
                     <div class="content thumbnail div-img">
                         <a th:href="@{/movies/details/{movieId}(movieId = ${movie.getId()})}">
                             <img th:src="*{movie.poster}" src="" alt="Movie" width="100%">
                         </a>
-                        <div class="title">
-                            <p th:text="*{movie.movieTitle}"></p>
+                        <div>
+                            <h4 th:text="*{movie.movieTitle}"></h4>
                         </div>
-                        <div class="genre">
+                        <div>
                             <p th:text="|*{movie.duration} minutes|"></p>
                         </div>
                     </div>
@@ -44,5 +45,6 @@
     <th:block th:include="~{/fragments/footer}"></th:block>
 </div>
 <th:block th:include="~{/fragments/js-files}"></th:block>
+<script th:src="@{/js/search_with_ajax.js}"></script>
 </body>
 </html>

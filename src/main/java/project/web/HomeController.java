@@ -10,7 +10,7 @@ import java.util.List;
 
 @Controller
 public class HomeController {
-private final MovieService movieService;
+    private final MovieService movieService;
 
     public HomeController(MovieService movieService) {
         this.movieService = movieService;
@@ -23,8 +23,7 @@ private final MovieService movieService;
 
     @GetMapping("/home")
     public String home(Model model) {
-        List<MovieViewModel> allMovies = this.movieService.getAllMovies();
-        model.addAttribute("allMovies", allMovies);
+        model.addAttribute("allMovies", this.movieService.getAllMovies());
         return "home";
     }
 }
