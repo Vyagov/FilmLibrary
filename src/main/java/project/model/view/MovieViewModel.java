@@ -1,6 +1,5 @@
 package project.model.view;
 
-import java.util.HashSet;
 import java.util.Set;
 
 public class MovieViewModel extends BaseViewModel {
@@ -10,7 +9,7 @@ public class MovieViewModel extends BaseViewModel {
     private String producer;
     private String screenwriter;
     private Integer duration;
-    private Set<ActorViewModel> actors = new HashSet<>();
+    private Set<ActorViewModel> actors;
 
     public MovieViewModel() {
     }

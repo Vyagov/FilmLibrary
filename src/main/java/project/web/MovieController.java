@@ -12,6 +12,7 @@ import project.annotation.Title;
 import project.components.MovieImageValidator;
 import project.model.binding.MovieBindingModel;
 import project.model.service.MovieServiceModel;
+import project.model.view.MovieViewModel;
 import project.service.ActorService;
 import project.service.MovieService;
 
@@ -71,10 +72,12 @@ public class MovieController {
     }
 
     @Title(name = "Movie Details")
-    @PreAuthorize("hasAnyAuthority('MAIN_ADMIN','ADMIN')")
+    @PreAuthorize("hasAnyAuthority('MAIN_ADMIN','ADMIN', 'USER')")
     @GetMapping("/details/{id}")
     public ModelAndView details(@PathVariable("id") String id, ModelAndView modelAndView) {
-        modelAndView.addObject("movie", this.movieService.findById(id));
+        MovieViewModel movie = this.movieService.findById(id);
+
+        modelAndView.addObject("movie", movie);
         modelAndView.setViewName("movie/details");
 
         return modelAndView;

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{/fragments/head}"></th:block>
+
+    <link rel="stylesheet" th:href="@{/css/component/details_view.css}"/>
+</head>
+<body>
+<div class="container">
+    <th:block th:include="~{/fragments/nav}"></th:block>
+    <div class="card">
+        <div class="card-header">Profile Information</div>
+        <div class="row justify-content-center">
+            <div th:object="${movie}" class="text-center col-lg-6">
+                <div class="second">
+                    <img th:src="*{poster}" src="" class="card-img-top" width="100%" alt="poster">
+                </div>
+                <div class="mb-2">
+                    <h3 th:text="*{movieTitle}"></h3>
+                </div>
+                <div class="mb-2">
+                    <ul class="list-unstyled">
+                        <li class="media">
+                            <span>Director:  </span>
+                            <label th:text="*{director}"></label>
+                        </li>
+                        <li class="media">
+                            <span>Producer: </span>
+                            <label th:text="*{producer}"></label>
+                        </li>
+                        <li class="media">
+                            <span>Screenwriter: </span>
+                            <label th:text="*{screenwriter}"></label>
+                        </li>
+                        <li class="media mb-4">
+                            <span>Duration: </span>
+                            <label th:text="|*{duration}min|"></label>
+                        </li>
+                        <th:block sec:authorize="hasAnyAuthority('MAIN_ADMIN', 'ADMIN')">
+                            <li class="media">
+                                <span>
+                                    <a th:href="@{/movies/details/update}"
+                                       class="btn btn-success">Update Details</a>
+                                </span>
+                                <label>
+                                    <a th:href="@{/movies/delete/{id}(id = *{id})}"
+                                       onclick="return confirm('Do you really want to delete this Movie?');"
+                                       class="btn btn-danger">Delete</a>
+                                </label>
+                            </li>
+                        </th:block>
+                    </ul>
+                </div>
+                <div class="list-group list-group-flush">
+                    <div th:each="actor : ${movie.actors}">
+                        <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+                           th:href="@{/actors/details/{actorId}(actorId = ${actor.getId()})}">
+                            <img th:src="${actor.image}" src="" alt="Actor" width="20px">
+                            <p th:text="${actor.name}"></p>
+                            <span class="badge badge-primary badge-pill">14</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <th:block th:include="~{/fragments/footer}"></th:block>
+</div>
+</div>
+<th:block th:include="~{/fragments/js-files}"></th:block>
+</body>
+</html>

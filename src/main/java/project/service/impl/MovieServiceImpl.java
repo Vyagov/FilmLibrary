@@ -4,9 +4,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import project.model.entity.Actor;
+import project.error.MovieIsNotExistException;
 import project.model.entity.Movie;
 import project.model.service.MovieServiceModel;
+import project.model.view.ActorViewModel;
 import project.model.view.MovieViewModel;
 import project.repository.MovieRepository;
 import project.service.ActorService;
@@ -74,10 +75,18 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public MovieViewModel findById(String id) {
-        return this.movieRepository
-                .findById(id)
-                .map(this::mapToView)
-                .orElse(null);
+        Movie movie = this.movieRepository.findById(id).orElse(null);
+
+        if (movie == null) {
+            throw new MovieIsNotExistException("This Movie is not exist");
+        }
+
+        Set<ActorViewModel> actors = movie.getCast().stream()
+                .map(actor -> this.modelMapper.map(actor, ActorViewModel.class))
+                .collect(Collectors.toSet());
+        MovieViewModel movieViewModel = this.mapToView(movie);
+        movieViewModel.setActors(actors);
+        return movieViewModel;
     }
 
     @Override
