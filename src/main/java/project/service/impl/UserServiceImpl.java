@@ -7,9 +7,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import project.error.*;
+import project.model.entity.Movie;
 import project.model.entity.Role;
 import project.model.entity.User;
 import project.model.service.UserServiceModel;
+import project.model.view.MovieViewModel;
 import project.model.view.UserProfileUpdateViewModel;
 import project.model.view.UserProfileViewModel;
 import project.repository.UserRepository;
@@ -17,7 +19,9 @@ import project.service.UserService;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -120,6 +124,49 @@ public class UserServiceImpl implements UserService {
             throw new UserIsNotHaveAccessException("Do not have access to delete MAIN ADMIN!");
         }
         this.userRepository.deleteById(id);
+    }
+
+    @Override
+    public List<MovieViewModel> getWatchList(String username) {
+        User user = this.getUserByUsername(username);
+
+        if (user == null) {
+            throw new UserIsNotExistException(username);
+        }
+        return user.getWatchList().stream()
+                .map(movie -> this.modelMapper.map(movie, MovieViewModel.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void addMovieInWatchList(String username, MovieViewModel movieViewModel) {
+        User user = getUserByUsername(username);
+
+        user.getWatchList().forEach(movie -> {
+            if (movie.getMovieTitle().equals(movieViewModel.getMovieTitle())) {
+                throw new MovieAlreadyInWatchListException("The movie is already on the list!");
+            }
+        });
+        user.getWatchList().add(this.modelMapper.map(movieViewModel, Movie.class));
+    }
+
+    @Override
+    public List<UserProfileViewModel> getAllUsersForView() {
+            return this.userRepository
+                    .findAll()
+                    .stream()
+                    .map(user -> this.modelMapper.map(user, UserProfileViewModel.class))
+                    .collect(Collectors.toList());
+    }
+
+    @Override
+    public UserServiceModel findUserById(String userId) {
+        User user = getUserById(userId);
+
+        if (user == null) {
+            throw new UserIdNotFoundException(userId);
+        }
+        return this.modelMapper.map(user, UserServiceModel.class);
     }
 
     private User getUserByUsername(String username) {

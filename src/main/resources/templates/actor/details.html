@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{/fragments/head}"></th:block>
+
+    <link rel="stylesheet" th:href="@{/css/component/details_view.css}"/>
+</head>
+<body>
+<div class="container">
+    <th:block th:include="~{/fragments/nav}"></th:block>
+    <div class="card">
+        <div class="card-header">Profile Information</div>
+        <div class="row justify-content-center">
+            <div th:object="${actor}" class="text-center col-lg-6">
+                <div class="second">
+                    <img th:src="*{image}" src="" class="card-img-top" width="100%" alt="poster">
+                </div>
+                <div class="mb-2">
+                    <h3 th:text="*{born}"></h3>
+                </div>
+                <div class="mb-2">
+                    <h3 th:text="*{biography}"></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <th:block th:include="~{/fragments/footer}"></th:block>
+</div>
+</div>
+<th:block th:include="~{/fragments/js-files}"></th:block>
+</body>
+</html>

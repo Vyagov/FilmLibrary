@@ -36,19 +36,20 @@
                             <span>Duration: </span>
                             <label th:text="|*{duration}min|"></label>
                         </li>
-                        <th:block sec:authorize="hasAnyAuthority('MAIN_ADMIN', 'ADMIN')">
-                            <li class="media">
+
+                        <li class="media">
                                 <span>
-                                    <a th:href="@{/movies/details/update}"
-                                       class="btn btn-success">Update Details</a>
+                                    <a th:href="@{/users/matchList/add/{id}(id = *{id})}"
+                                       class="btn btn-success">Add to Watch list</a>
                                 </span>
+                            <th:block sec:authorize="hasAnyAuthority('MAIN_ADMIN', 'ADMIN')">
                                 <label>
                                     <a th:href="@{/movies/delete/{id}(id = *{id})}"
                                        onclick="return confirm('Do you really want to delete this Movie?');"
                                        class="btn btn-danger">Delete</a>
                                 </label>
-                            </li>
-                        </th:block>
+                            </th:block>
+                        </li>
                     </ul>
                 </div>
                 <div class="list-group list-group-flush">

@@ -17,6 +17,7 @@ public class User extends BaseEntity implements UserDetails {
     private String email;
     private LocalDateTime createDate = LocalDateTime.now();
     private Set<Role> authorities;
+    private Set<Movie> watchList;
 
     public User() {
     }
@@ -84,6 +85,16 @@ public class User extends BaseEntity implements UserDetails {
 
     public void setAuthorities(Set<Role> authorities) {
         this.authorities = authorities;
+    }
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    public Set<Movie> getWatchList() {
+        return watchList;
+    }
+
+    public void setWatchList(Set<Movie> watchList) {
+        this.watchList = watchList;
     }
 
     @Override

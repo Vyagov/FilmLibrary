@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{/fragments/head}"></th:block>
+</head>
+<body>
+<div class="container">
+    <th:block th:include="~{/fragments/nav}"></th:block>
+    <div class="card">
+        <th:block sec:authorize="hasAnyAuthority('MAIN_ADMIN', 'ADMIN', 'USER')">
+            <div class="card-header">Watch List</div>
+            <div th:if="${watchList.isEmpty()}">
+                <h4>The Watch list is empty!</h4>
+            </div>
+            <div th:unless="${watchList.isEmpty()}" class="row imglink">
+                <div class="col-3" id="my-col" th:each="movie : ${watchList}">
+                    <div class="content thumbnail div-img">
+                        <a th:href="@{/movies/details/{movieId}(movieId = ${movie.getId()})}">
+                            <img th:src="*{movie.poster}" src="" alt="Movie" width="100%">
+                        </a>
+                        <div>
+                            <h4 th:text="*{movie.movieTitle}"></h4>
+                        </div>
+                        <div>
+                            <p th:text="|*{movie.duration} minutes|"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </th:block>
+    </div>
+    <th:block th:include="~{/fragments/footer}"></th:block>
+</div>
+<th:block th:include="~{/fragments/js-files}"></th:block>
+</body>
+</html>

@@ -10,6 +10,7 @@ public class UserServiceModel extends BaseServiceModel {
     private String confirmPassword;
     private String email;
     private Set<RoleServiceModel> authorities;
+    private Set<MovieServiceModel> watchList;
 
     public UserServiceModel() {
     }

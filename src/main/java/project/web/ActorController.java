@@ -66,7 +66,7 @@ public class ActorController {
     @PreAuthorize("hasAnyAuthority('ADMIN', 'MAIN_ADMIN', 'USER')")
     @GetMapping("/details/{id}")
     public ModelAndView details(@PathVariable("id") String id, ModelAndView modelAndView) {
-        modelAndView.addObject("author", this.actorService.findById(id));
+        modelAndView.addObject("actor", this.actorService.findById(id));
         modelAndView.setViewName("actor/details");
 
         return modelAndView;

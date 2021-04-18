@@ -15,7 +15,10 @@ import project.annotation.Title;
 import project.error.*;
 import project.model.binding.UserProfileUpdateBindingModel;
 import project.model.binding.UserRegisterBindingModel;
+import project.model.service.MovieServiceModel;
 import project.model.service.UserServiceModel;
+import project.model.view.MovieViewModel;
+import project.service.MovieService;
 import project.service.UserService;
 
 import javax.servlet.http.HttpSession;
@@ -28,11 +31,13 @@ public class UsersController {
 
     private final UserService userService;
     private final ModelMapper modelMapper;
+    private final MovieService movieService;
 
     @Autowired
-    public UsersController(UserService userService, ModelMapper modelMapper) {
+    public UsersController(UserService userService, ModelMapper modelMapper, MovieService movieService) {
         this.userService = userService;
         this.modelMapper = modelMapper;
+        this.movieService = movieService;
     }
 
     @Title(name = "User Login")
@@ -113,7 +118,7 @@ public class UsersController {
     }
 
 
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER', 'MAIN_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'MAIN_ADMIN', 'USER')")
     @GetMapping("/profile/delete/{id}")
     public String delete(@PathVariable("id") String id, HttpSession session) {
         this.userService.deleteProfile(id);
@@ -122,9 +127,30 @@ public class UsersController {
         return "redirect:/";
     }
 
+    @Title(name = "Watch List")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER', 'MAIN_ADMIN')")
+    @GetMapping("/watchList")
+    public String userWatchList(Principal principal, Model model) {
+        if (!model.containsAttribute("watchList")) {
+            model.addAttribute("watchList", this.userService.getWatchList(principal.getName()));
+        }
+        return "profile/watch-list";
+    }
+
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER', 'MAIN_ADMIN')")
+    @GetMapping("/watchList/add/{id}")
+    public String userWatchListAdd(@PathVariable("id") String id, Principal principal) {
+        MovieViewModel movieViewModel = this.movieService.findById(id);
+
+        this.userService.addMovieInWatchList(principal.getName(), movieViewModel);
+
+        return "redirect:/";
+    }
+
     @ExceptionHandler({UsernameAlreadyExistException.class,
             UserIsNotHaveAccessException.class,
 //            UserIdNotFoundException.class,
+            MovieAlreadyInWatchListException.class,
             EmailAlreadyExistException.class,
             UsernameNotFoundException.class,
             UserRegistrationException.class})
